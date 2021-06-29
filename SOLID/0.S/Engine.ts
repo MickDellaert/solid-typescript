@@ -1,0 +1,3 @@
+class Engine {
+    engineStatus: boolean;
+}
