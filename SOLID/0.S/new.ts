@@ -1,8 +1,10 @@
 import {MusicPlayer} from "./MusicPlayer";
 import {Engine} from "./Engine";
+import {Car} from "./Car";
 
 let musicPlayer = new MusicPlayer(0,50);
-let engine = new Engine();
+let engine = new Engine(false, 10);
+let car = new Car(0, 100);
 
 let musicToggleElement = document.querySelector('#music-toggle') as HTMLButtonElement;
 let musicSliderElement = document.querySelector('#music-slider') as HTMLInputElement;

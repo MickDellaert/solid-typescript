@@ -1,8 +1,10 @@
 export class Engine {
     private _engineStatus: boolean = false;
+    private _FUEL_MILAGE: number = 10;
 
-    constructor(_engineStatus: boolean) {
-        this._engineStatus = _engineStatus;
+    constructor(engineStatus: boolean, FUEL_MILAGE) {
+        this._engineStatus = engineStatus;
+        this._FUEL_MILAGE = FUEL_MILAGE;
     }
 
     get status(): boolean {
@@ -16,4 +18,5 @@ export class Engine {
     turnEngineOff() {
         this._engineStatus = false;
     }
+
 }
