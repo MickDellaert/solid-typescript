@@ -1,10 +1,16 @@
+import {Engine} from "./Engine";
+
 export class Car {
     private _fuel: number = 0;
-    readonly _MAXIMUM_FUEL_CAPACITY: number
+    readonly MAXIMUM_FUEL_CAPACITY: number
+    private _miles: number = 0;
+    private _engine: Engine;
 
-    constructor(fuel: number, MAXIMUM_FUEL_CAPACITY: number) {
+    constructor(fuel: number, MAXIMUM_FUEL_CAPACITY: number, miles: number, engine: Engine) {
         this._fuel = fuel;
-        this._MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
+        this._miles = miles;
+        this._engine = engine;
     }
 
     get fuel(): number {
@@ -15,11 +21,19 @@ export class Car {
         this._fuel = value;
     }
 
-    get MAXIMUM_FUEL_CAPACITY(): number {
-        return this.MAXIMUM_FUEL_CAPACITY
+    get miles(): number {
+        return this._miles;
     }
 
     addFuel(fuel: number) {
         this._fuel = Math.min(fuel + this._fuel, this.MAXIMUM_FUEL_CAPACITY);
+    }
+
+    drive() {
+        if (this._engine.status === false || this._fuel <= 0) {
+            return;
+        }
+        this._fuel -= 1;
+        this._miles += this._engine.mileage;
     }
 }

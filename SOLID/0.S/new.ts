@@ -4,17 +4,16 @@ import {Car} from "./Car";
 
 let musicPlayer = new MusicPlayer(0,50);
 let engine = new Engine(false, 10);
-let car = new Car(0, 100);
+let car = new Car(0, 100, 0, engine);
 
 let musicToggleElement = document.querySelector('#music-toggle') as HTMLButtonElement;
 let musicSliderElement = document.querySelector('#music-slider') as HTMLInputElement;
 let engineToggleElement = document.querySelector('#engine-toggle') as HTMLButtonElement;
-// let addFuelForm = document.querySelector('#add-fuel-form');
-// let addFuelInput = document.querySelector('#add-fuel-input');
-// let fuelLevelElement = document.querySelector('#fuel-level');
-// let milesElement = document.querySelector('#miles-value');
+let addFuelForm = document.querySelector('#add-fuel-form') as HTMLFormElement;
+let addFuelInput = document.querySelector('#add-fuel-input') as HTMLInputElement;
+let fuelLevelElement = document.querySelector('#fuel-level') as HTMLElement;
+let milesElement = document.querySelector('#miles-value') as HTMLElement;
 let audioElement = document.querySelector('#car-music') as HTMLAudioElement;
-// let car = new Car(100);
 
 musicToggleElement.addEventListener('click', function () {
     if (musicPlayer.musicLevel === 0) {
@@ -45,7 +44,17 @@ engineToggleElement.addEventListener('click', function () {
     engine.turnEngineOn();
 });
 
+addFuelForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    car.addFuel(Number(addFuelInput.value)) ;
+    fuelLevelElement.innerText = car.fuel.toString();
+});
+
 setInterval(function () {
+    car.drive();
+    milesElement.innerText = (car.miles) as unknown as string;
+    fuelLevelElement.innerText = car.fuel.toString();
 
     if (musicPlayer.musicLevel === 0) {
         audioElement.pause();
