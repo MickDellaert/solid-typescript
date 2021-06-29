@@ -1,10 +1,12 @@
 import {MusicPlayer} from "./MusicPlayer";
+import {Engine} from "./Engine";
 
 let musicPlayer = new MusicPlayer(0,50);
+let engine = new Engine();
 
 let musicToggleElement = document.querySelector('#music-toggle') as HTMLButtonElement;
 let musicSliderElement = document.querySelector('#music-slider') as HTMLInputElement;
-// let engineToggleElement = document.querySelector('#engine-toggle');
+let engineToggleElement = document.querySelector('#engine-toggle') as HTMLButtonElement;
 // let addFuelForm = document.querySelector('#add-fuel-form');
 // let addFuelInput = document.querySelector('#add-fuel-input');
 // let fuelLevelElement = document.querySelector('#fuel-level');
@@ -29,6 +31,16 @@ musicSliderElement.addEventListener('input', function (event) {
     audioElement.volume = musicPlayer.musicLevel / 100;
     //@todo when you are repeating the same text over and over again maybe we should have made some constants for it? Can you do improve on this?
     musicToggleElement.innerText = musicPlayer.musicLevel ? 'Turn music off' : 'Turn music on';
+});
+
+engineToggleElement.addEventListener('click', function () {
+    if (engine.status) {
+        engine.turnEngineOff();
+        engineToggleElement.innerText = 'Turn engine on';
+        return;
+    }
+    engineToggleElement.innerText = 'Turn engine off';
+    engine.turnEngineOn();
 });
 
 setInterval(function () {
