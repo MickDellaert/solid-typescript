@@ -1,18 +1,19 @@
 export class MusicPlayer {
-    _musicLevel: number = 0;
-    _oldMusicLevel: number = 50;
+    private _musicLevel: number = 0;
+    private _oldMusicLevel: number = 50;
 
-    constructor(musicLevel: number, oldMusiclevel: number) {
+    constructor(musicLevel: number, oldMusicLevel: number) {
         this._musicLevel = musicLevel;
-        this._oldMusicLevel = oldMusiclevel;
+        this._oldMusicLevel = oldMusicLevel;
     }
 
     get musicLevel(): number {
         return this._musicLevel;
     }
 
-    set oldMusicLevel(): number {
-        return this._oldMusicLevel;
+    set musicLevel(value: number) {
+        this._musicLevel = value;
+        this._oldMusicLevel = value;
     }
 
     turnMusicOn() {
