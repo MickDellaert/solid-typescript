@@ -2,8 +2,7 @@ export class Engine {
     private _status: boolean = false;
     readonly FUEL_MILEAGE: number = 10;
 
-    constructor(status: boolean, FUEL_MILEAGE: number) {
-        this._status = status;
+    constructor(FUEL_MILEAGE: number) {
         this.FUEL_MILEAGE = FUEL_MILEAGE;
     }
 

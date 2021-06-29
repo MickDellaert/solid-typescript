@@ -3,8 +3,8 @@ import {Engine} from "./Engine";
 import {Car} from "./Car";
 
 let musicPlayer = new MusicPlayer(0,50);
-let engine = new Engine(false, 10);
-let car = new Car(0, 100, 0, engine);
+let engine = new Engine(10);
+let car = new Car(100, engine);
 
 let musicToggleElement = document.querySelector('#music-toggle') as HTMLButtonElement;
 let musicSliderElement = document.querySelector('#music-slider') as HTMLInputElement;
@@ -47,7 +47,7 @@ engineToggleElement.addEventListener('click', function () {
 addFuelForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    car.addFuel(Number(addFuelInput.value)) ;
+    car.addFuel(Number(addFuelInput.value));
     fuelLevelElement.innerText = car.fuel.toString();
 });
 

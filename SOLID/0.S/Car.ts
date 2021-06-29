@@ -6,10 +6,8 @@ export class Car {
     private _miles: number = 0;
     private _engine: Engine;
 
-    constructor(fuel: number, MAXIMUM_FUEL_CAPACITY: number, miles: number, engine: Engine) {
-        this._fuel = fuel;
+    constructor(MAXIMUM_FUEL_CAPACITY: number, engine: Engine) {
         this.MAXIMUM_FUEL_CAPACITY = MAXIMUM_FUEL_CAPACITY;
-        this._miles = miles;
         this._engine = engine;
     }
 
