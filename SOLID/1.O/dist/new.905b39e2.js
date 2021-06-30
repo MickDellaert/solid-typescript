@@ -117,7 +117,14 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"old.js":[function(require,module,exports) {
+})({"Classes/Dog.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Dog = void 0;
+
 var Dog =
 /** @class */
 function () {
@@ -135,13 +142,27 @@ function () {
   });
   Object.defineProperty(Dog.prototype, "type", {
     get: function get() {
-      return 'dog';
+      return 'Dog';
     },
     enumerable: false,
     configurable: true
   });
+
+  Dog.prototype.makeSound = function () {
+    return 'woef';
+  };
+
   return Dog;
 }();
+
+exports.Dog = Dog;
+},{}],"Classes/Cat.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Cat = void 0;
 
 var Cat =
 /** @class */
@@ -160,13 +181,27 @@ function () {
   });
   Object.defineProperty(Cat.prototype, "type", {
     get: function get() {
-      return 'cat';
+      return 'Cat';
     },
     enumerable: false,
     configurable: true
   });
+
+  Cat.prototype.makeSound = function () {
+    return 'miauw';
+  };
+
   return Cat;
 }();
+
+exports.Cat = Cat;
+},{}],"Classes/Parrot.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Parrot = void 0;
 
 var Parrot =
 /** @class */
@@ -185,19 +220,72 @@ function () {
   });
   Object.defineProperty(Parrot.prototype, "type", {
     get: function get() {
-      return 'parrot';
+      return 'Parrot';
     },
     enumerable: false,
     configurable: true
   });
+
+  Parrot.prototype.makeSound = function () {
+    return 'I am a pirate';
+  };
+
   return Parrot;
 }();
+
+exports.Parrot = Parrot;
+},{}],"Classes/Squirrel.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Squirrel = void 0;
+
+var Squirrel =
+/** @class */
+function () {
+  function Squirrel() {}
+
+  Object.defineProperty(Squirrel.prototype, "name", {
+    get: function get() {
+      return this._name;
+    },
+    set: function set(value) {
+      this._name = value;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Squirrel.prototype, "type", {
+    get: function get() {
+      return 'Squirrel';
+    },
+    enumerable: false,
+    configurable: true
+  });
+
+  Squirrel.prototype.makeSound = function () {
+    return 'squeak';
+  };
+
+  return Squirrel;
+}();
+
+exports.Squirrel = Squirrel;
+},{}],"Classes/Zoo.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Zoo = void 0;
 
 var Zoo =
 /** @class */
 function () {
   function Zoo() {
-    this._animals = new Array();
+    this._animals = [];
   }
 
   Zoo.prototype.addAnimal = function (animal) {
@@ -211,34 +299,36 @@ function () {
     enumerable: false,
     configurable: true
   });
-
-  Zoo.prototype.makeSound = function (animal) {
-    switch (animal.type) {
-      case 'cat':
-        return 'Miauw';
-
-      case 'dog':
-        return 'Woef';
-
-      case 'parrot':
-        return 'I am a pirate';
-
-      default:
-        throw new Error('Unknown type: ' + animal.type);
-    }
-  };
-
   return Zoo;
 }();
 
-var zoo = new Zoo();
-zoo.addAnimal(new Cat());
-zoo.addAnimal(new Dog());
-zoo.addAnimal(new Parrot());
-zoo.animals.forEach(function (animal) {
-  document.querySelector('#target').innerHTML += animal.type + ": " + zoo.makeSound(animal) + "<br>";
+exports.Zoo = Zoo;
+},{}],"new.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var Dog_1 = require("./Classes/Dog");
+
+var Cat_1 = require("./Classes/Cat");
+
+var Parrot_1 = require("./Classes/Parrot");
+
+var Squirrel_1 = require("./Classes/Squirrel");
+
+var Zoo_1 = require("./Classes/Zoo");
+
+var zoo = new Zoo_1.Zoo();
+zoo.addAnimal(new Dog_1.Dog());
+zoo.addAnimal(new Cat_1.Cat());
+zoo.addAnimal(new Parrot_1.Parrot());
+zoo.addAnimal(new Squirrel_1.Squirrel());
+zoo.animals.forEach(function (animal) {
+  document.querySelector('#target').innerHTML += animal.type + ": " + animal.makeSound() + " <br>";
+});
+},{"./Classes/Dog":"Classes/Dog.ts","./Classes/Cat":"Classes/Cat.ts","./Classes/Parrot":"Classes/Parrot.ts","./Classes/Squirrel":"Classes/Squirrel.ts","./Classes/Zoo":"Classes/Zoo.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -266,7 +356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50066" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51391" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -442,5 +532,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","old.js"], null)
-//# sourceMappingURL=/old.959634d2.js.map
+},{}]},{},["../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","new.ts"], null)
+//# sourceMappingURL=/new.905b39e2.js.map
