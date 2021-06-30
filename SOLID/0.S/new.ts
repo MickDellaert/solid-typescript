@@ -1,6 +1,6 @@
-import {MusicPlayer} from "./MusicPlayer";
-import {Engine} from "./Engine";
-import {Car} from "./Car";
+import {MusicPlayer} from "./Classes/MusicPlayer";
+import {Engine} from "./Classes/Engine";
+import {Car} from "./Classes/Car";
 
 let musicPlayer = new MusicPlayer(0,50);
 let engine = new Engine(10);
