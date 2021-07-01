@@ -22,29 +22,9 @@ interface FacebookAuth {
     getFacebookLogin(token : string) : boolean;
 }
 
-class User implements PasswordAuth, GoogleAuth, FacebookAuth {
+
+class User implements PasswordAuth {
     private _password : string = 'user';
-    private _facebookToken : string;
-    private _googleToken : string;
-
-    //Interesting detail here: while I did not define a return type or param type, any deviation from the interface will give you an error.
-    // Test it out by uncommenting the code below.
-    checkGoogleLogin(token) {
-        // return "this will not work";
-        return (token === this._googleToken);
-    }
-
-    setGoogleToken(token : string) {
-        this._googleToken = token;
-    }
-
-    getFacebookLogin(token) {
-        return (token === this._facebookToken);
-    }
-
-    setFacebookToken(token : string) {
-        this._facebookToken = token;
-    }
 
     checkPassword(password: string) : boolean {
         return (password === this._password);
@@ -55,36 +35,65 @@ class User implements PasswordAuth, GoogleAuth, FacebookAuth {
     }
 }
 
-//admin cannot use google or facebook token
 class Admin implements PasswordAuth {
     private _password : string = 'admin';
-
-    checkGoogleLogin(token: string): boolean {
-        return false;
-    }
 
     checkPassword(password: string): boolean {
         return (password === this._password);
     }
 
-    getFacebookLogin(token: string): boolean {
-        return false;
-    }
-
-    setFacebookToken() {
-        throw new Error('Function not supported for admins');
-    }
-
-    setGoogleToken() {
-        throw new Error('Function not supported for admins');
-    }
-
     resetPassword() {
         this._password = prompt('What is your new password?');
     }
+
 }
 
-// class GoogleBot implements UserAuth {}
+class Google implements GoogleAuth {
+    private _googleToken : string;
+
+    checkGoogleLogin(token) {
+        // return "this will not work";
+        return (token === this._googleToken);
+    }
+
+    setGoogleToken(token : string) {
+        this._googleToken = token;
+    }
+}
+
+class Facebook implements FacebookAuth {
+    private _facebookToken : string;
+
+    getFacebookLogin(token) {
+        return (token === this._facebookToken);
+    }
+
+    setFacebookToken(token : string) {
+        this._facebookToken = token;
+    }
+}
+
+// class GoogleBot implements PasswordAuth, GoogleAuth {
+//     private _password : string = 'google-bot';
+//     private _googleToken : string;
+//
+//     checkPassword(password: string) : boolean {
+//         return (password === this._password);
+//     }
+//
+//     resetPassword() {
+//         this._password = prompt('What is your new password?');
+//     }
+//
+//     checkGoogleLogin(token) {
+//         // return "this will not work";
+//         return (token === this._googleToken);
+//     }
+//
+//     setGoogleToken(token : string) {
+//         this._googleToken = token;
+//     }
+// }
 
 const passwordElement = <HTMLInputElement>document.querySelector('#password');
 const typePasswordElement = <HTMLInputElement>document.querySelector('#typePassword');
