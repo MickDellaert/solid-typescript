@@ -1,12 +1,3 @@
-// interface UserAuth {
-//     checkPassword(password: string) : boolean;
-//     resetPassword();
-//     setGoogleToken(token : string);
-//     checkGoogleLogin(token : string) : boolean;
-//     setFacebookToken(token : string);
-//     getFacebookLogin(token : string) : boolean;
-// }
-
 interface PasswordAuth {
     checkPassword(password: string) : boolean;
     resetPassword();
@@ -23,8 +14,11 @@ interface FacebookAuth {
 }
 
 
-class User implements PasswordAuth {
+class User implements PasswordAuth, GoogleAuth, FacebookAuth {
     private _password : string = 'user';
+    private _facebookToken : string;
+    private _googleToken : string;
+
 
     checkPassword(password: string) : boolean {
         return (password === this._password);
@@ -32,6 +26,23 @@ class User implements PasswordAuth {
 
     resetPassword() {
         this._password = prompt('What is your new password?');
+    }
+
+    checkGoogleLogin(token) {
+        // return "this will not work";
+        return (token === this._googleToken);
+    }
+
+    setGoogleToken(token : string) {
+        this._googleToken = token;
+    }
+
+    getFacebookLogin(token) {
+        return (token === this._facebookToken);
+    }
+
+    setFacebookToken(token : string) {
+        this._facebookToken = token;
     }
 }
 
@@ -45,10 +56,34 @@ class Admin implements PasswordAuth {
     resetPassword() {
         this._password = prompt('What is your new password?');
     }
-
 }
 
-class Google implements GoogleAuth {
+// class Google implements GoogleAuth {
+//     private _googleToken : string;
+//
+//     checkGoogleLogin(token) {
+//         // return "this will not work";
+//         return (token === this._googleToken);
+//     }
+//
+//     setGoogleToken(token : string) {
+//         this._googleToken = token;
+//     }
+// }
+//
+// class Facebook implements FacebookAuth {
+//     private _facebookToken : string;
+//
+//     getFacebookLogin(token) {
+//         return (token === this._facebookToken);
+//     }
+//
+//     setFacebookToken(token : string) {
+//         this._facebookToken = token;
+//     }
+// }
+
+class GoogleBot implements GoogleAuth {
     private _googleToken : string;
 
     checkGoogleLogin(token) {
@@ -61,40 +96,6 @@ class Google implements GoogleAuth {
     }
 }
 
-class Facebook implements FacebookAuth {
-    private _facebookToken : string;
-
-    getFacebookLogin(token) {
-        return (token === this._facebookToken);
-    }
-
-    setFacebookToken(token : string) {
-        this._facebookToken = token;
-    }
-}
-
-// class GoogleBot implements PasswordAuth, GoogleAuth {
-//     private _password : string = 'google-bot';
-//     private _googleToken : string;
-//
-//     checkPassword(password: string) : boolean {
-//         return (password === this._password);
-//     }
-//
-//     resetPassword() {
-//         this._password = prompt('What is your new password?');
-//     }
-//
-//     checkGoogleLogin(token) {
-//         // return "this will not work";
-//         return (token === this._googleToken);
-//     }
-//
-//     setGoogleToken(token : string) {
-//         this._googleToken = token;
-//     }
-// }
-
 const passwordElement = <HTMLInputElement>document.querySelector('#password');
 const typePasswordElement = <HTMLInputElement>document.querySelector('#typePassword');
 const typeGoogleElement = <HTMLInputElement>document.querySelector('#typeGoogle');
@@ -104,6 +105,8 @@ const resetPasswordElement = <HTMLAnchorElement>document.querySelector('#resetPa
 
 let guest = new User;
 let admin = new Admin;
+let bot;
+let bot = new GoogleBot();
 
 document.querySelector('#login-form').addEventListener('submit', (event) => {
     event.preventDefault();
