@@ -1,23 +1,23 @@
 interface PasswordAuth {
     checkPassword(password: string) : boolean;
-    resetPassword();
+    resetPassword() : void;
 }
 
 interface GoogleAuth {
-    setGoogleToken(token : string);
+    setGoogleToken(token : string): void;
     checkGoogleLogin(token : string) : boolean;
 }
 
 interface FacebookAuth {
-    setFacebookToken(token : string);
+    setFacebookToken(token : string): void;
     getFacebookLogin(token : string) : boolean;
 }
 
 
 class User implements PasswordAuth, GoogleAuth, FacebookAuth {
     private _password : string = 'user';
-    private _facebookToken : string;
-    private _googleToken : string;
+    private _facebookToken! : string;
+    private _googleToken! : string;
 
 
     checkPassword(password: string) : boolean {
@@ -25,10 +25,10 @@ class User implements PasswordAuth, GoogleAuth, FacebookAuth {
     }
 
     resetPassword() {
-        this._password = prompt('What is your new password?');
+        this._password = prompt('What is your new password?') as any;
     }
 
-    checkGoogleLogin(token) {
+    checkGoogleLogin(token: string) {
         // return "this will not work";
         return (token === this._googleToken);
     }
@@ -37,7 +37,7 @@ class User implements PasswordAuth, GoogleAuth, FacebookAuth {
         this._googleToken = token;
     }
 
-    getFacebookLogin(token) {
+    getFacebookLogin(token: string) {
         return (token === this._facebookToken);
     }
 
@@ -49,12 +49,28 @@ class User implements PasswordAuth, GoogleAuth, FacebookAuth {
 class Admin implements PasswordAuth {
     private _password : string = 'admin';
 
+    checkGoogleLogin(token: string): boolean {
+        return false;
+    }
+
     checkPassword(password: string): boolean {
         return (password === this._password);
     }
 
+    getFacebookLogin(token: string): boolean {
+        return false;
+    }
+
+    setFacebookToken() {
+        throw new Error('Function not supported for admins');
+    }
+
+    setGoogleToken() {
+        throw new Error('Function not supported for admins');
+    }
+
     resetPassword() {
-        this._password = prompt('What is your new password?');
+        this._password = prompt('What is your new password?') as any;
     }
 }
 
@@ -84,9 +100,9 @@ class Admin implements PasswordAuth {
 // }
 
 class GoogleBot implements GoogleAuth {
-    private _googleToken : string;
+    private _googleToken! : string;
 
-    checkGoogleLogin(token) {
+    checkGoogleLogin(token: string) {
         // return "this will not work";
         return (token === this._googleToken);
     }
@@ -105,7 +121,6 @@ const resetPasswordElement = <HTMLAnchorElement>document.querySelector('#resetPa
 
 let guest = new User;
 let admin = new Admin;
-let bot;
 let bot = new GoogleBot();
 
 document.querySelector('#login-form').addEventListener('submit', (event) => {
@@ -116,6 +131,7 @@ document.querySelector('#login-form').addEventListener('submit', (event) => {
     if(!loginAsAdminElement.checked) {
         user.setGoogleToken('secret_token_google');
         user.setFacebookToken('secret_token_fb');
+        bot.setGoogleToken('secret_token_google')
     }
     debugger;
 
